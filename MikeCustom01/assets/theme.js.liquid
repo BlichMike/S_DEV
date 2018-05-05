@@ -813,7 +813,7 @@ var ajaxCart = (function(module, $) {
       cartCountSelector: null,
       cartCostSelector: null,
       moneyFormat: '${{amount}}',
-      disableAjaxCart: false,
+      disableAjaxCart: true,
       enableQtySelectors: true
     };
 
@@ -1169,13 +1169,15 @@ var ajaxCart = (function(module, $) {
           qty += 1;
         } else {
           qty -= 1;
-          if (qty <= 1) qty = 1;
+          if (qty <= 0) qty = 0;
         }
 
         // Update the input's number
         $qtySelector.val(qty);
       });
     }
+
+    $body.trigger('ajaxCart.qtyLoaded');
   };
 
   validateQty = function(qty) {
@@ -2106,9 +2108,9 @@ theme.Product = (function() {
         enableQtySelectors: true,
         moneyFormat: theme.strings.moneyFormat
       });
-    } else {
-    	this.defaultCart();
     }
+
+    this.atcDisabler();
     
     //progress bar
     function move() {
@@ -2133,36 +2135,30 @@ theme.Product = (function() {
     
       var date = new Date(), nextDate = new Date(), future = new Date(),
           progressBar = $('#myBarActive');
-      nextDate.setDate(date.getDate() + getRandomArbitrary(0.2 , 0.9));
+      nextDate.setHours(date.getHours() + getRandomArbitrary(2 , 9));
       future.setDate(date.getDate() + 2)
     
-//       $('#clock').countdown(nextDate).on('update.countdown', function(event) {
+       $('#clock').countdown(nextDate).on('update.countdown', function(event) {
         
-//         var format = '%H:%M:%S';
-//         $(this).html(event.strftime(format));
+         var format = '%H:%M:%S';
+         $(this).html(event.strftime(format));
 
-//   //           $(this).html(event.strftime(''
-//   //           + '<div class="myCountDown-wrapper">'                
-//   //              + '<div class="myCountDown-num">%H</div> <div class="myCountDown-lbl">hr</div> '
-//   // 		  + '</div> '
+           $(this).html(event.strftime(''
+           + '<div class="myCountDown-wrapper">'                
+              + '<div class="myCountDown-num">%H</div> <div class="myCountDown-lbl">hr</div> '
+ 		  + '</div> '
 
-//   //           + '<div class="myCountDown-wrapper">'              
-//   //              + '<div class="myCountDown-num">%M</div> <div class="myCountDown-lbl">min</div> '
-//   // 		  + '</div> '
-//   // 		  + '<div class="myCountDown-wrapper">'            
-//   //              + '<div class="myCountDown-num">%S</div> <div class="myCountDown-lbl">sec</div>'
-//   // 		  + '</div> '));
+           + '<div class="myCountDown-wrapper">'              
+              + '<div class="myCountDown-num">%M</div> <div class="myCountDown-lbl">min</div> '
+ 		  + '</div> '
+ 		  + '<div class="myCountDown-wrapper">'            
+              + '<div class="myCountDown-num">%S</div> <div class="myCountDown-lbl">sec</div>'
+ 		  + '</div> '));
 
-//         progressBar.css('width', 
-//           (1 - (event.offset.totalSeconds / ((future.getTime() - date.getTime())/1000))) * 100 + '%');
-//       });
-
-
+         progressBar.css('width', 
+           (1 - (event.offset.totalSeconds / ((future.getTime() - date.getTime())/1000))) * 100 + '%');
+       });
     
-    
-
-
-
     $window
       .on('load' + this.settings.namespace, theme.initStickyProductMeta)
       .on(
@@ -2221,15 +2217,8 @@ theme.Product = (function() {
       }
     },
     
-    defaultCart: function () {
-      var prodQuantity = {plus: ".product-single__quantity .fa-plus", 
-                     minus: ".product-single__quantity .fa-minus", 
-                     input: ".product-single__quantity input"};
-      
-      var $prod_qty_plus = $(prodQuantity.plus), 
-          $prod_qty_minus = $(prodQuantity.minus), 
-          $prod_qty_input = $(prodQuantity.input),
-          addingToCartBtnLabel ='Adding...', 
+    atcDisabler: function () {
+      var addingToCartBtnLabel ='Adding...', 
           atcSelector = "#AddToCart--product-template",
           $atc = $(atcSelector), 
           $atcSpan = $(atcSelector + " .btn__text");
@@ -2239,14 +2228,6 @@ theme.Product = (function() {
           $atc.attr("disabled", true);
           $atcSpan.text(addingToCartBtnLabel);
         });
-      });
-      
-      $prod_qty_plus.click( function() {
-        $prod_qty_input.trigger("stepUp");
-      });
-
-      $prod_qty_minus.click( function() {
-        $prod_qty_input.trigger("stepDown");
       });
     },
 

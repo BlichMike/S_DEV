@@ -328,9 +328,7 @@
               <div class="product-single__quantity">
                 <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
                 <div class="quantity-wrapper">
-                  <span class="fa fa-minus"></span> 
                   <input type="number" hidden="hidden" id="Quantity" name="quantity" value="1" min="1" class="js-quantity-selector">
-                  <span class="fa fa-plus"></span> 
                 </div>
                 
 
@@ -351,14 +349,15 @@
                 </button>
                 
                 {% if current_variant.available %}
-                
-<!--                 <div class="counter_container">
-                	<div class="text_above_timer">Sale Ends In:	</div>
+         
+                <div class="counter_container no-js">
+                  <div class="text_above_timer">Sale Ends In: </div>
                     <div id="myBar">
                       <div id="myBarActive"></div>
                     </div>
                     <div id="clock" class="myCountDown"></div>
-                </div> -->
+                </div>
+
                 {% endif %}
                 
                 {% if section.settings.enable_payment_button %}

@@ -4446,15 +4446,15 @@ h3.guhead {
   background-color: #0a4ee0;
 }
 
-.cart__checkout {
+.cart__checkout, .drawer .cart__checkout {
   margin-left: 0 !important;
   width: 100%;
-  background: #03a196;
+  background-color: #03a196;
   font-size: 16px;
 }
 
 .cart__checkout:hover, .cart__checkout:focus, .cart__checkout:active {
-  background: #04736b;
+  background-color: #04736b;
 }
 
 .cartBadges {
@@ -4477,74 +4477,6 @@ h3.guhead {
   	font-weight: normal;
     border: solid 1px red; 
   }
-}
-
-// prod quantity
-
-.product-single__quantity {
-  width: 100%;
-  .quantity-wrapper {
-  	width: 130px;
-  }
-}
-
-.product-single__quantity label {
-  display: inline-block;
-  cursor: default;
-  margin-right: 0;
-  margin-bottom: 10px;
-}
-
-.product-single__quantity input, .cart_quantity input{
-	text-align: center;
-    width: 38%;
-    height: 42px;
-    border-radius: 0;
-    -webkit-appearance: none;
-  	border: #e2e2e2 1px solid;
-    color: #000;
-  	background: #fff;
-  	vertical-align: top;
-}
-
-.product-single__quantity input {
-	position: relative;
-  	right: 5px;
-}
-
-.product-single__quantity input[type='number']::-webkit-inner-spin-button, 
-.product-single__quantity input[type='number']::-webkit-outer-spin-button,
-.cart_quantity input[type='number']::-webkit-inner-spin-button,
-.cart_quantity input[type='number']::-webkit-outer-spin-button{ 
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.product-single__quantity span, .cart_quantity span {
-  	background: #f2f2f2;
-    font-weight: 300;
-    cursor: pointer;
-    height: 42px;
-    display: inline-block;
-    width: 25%;
-    text-align: center;
-  	border: #e2e2e2 1px solid;
-    color: #000;
-  	border-right: 0;
-    line-height: 42px;
-    font-size: 18px;
-}
-
-.product-single__quantity span:hover, .cart_quantity span:hover{
-	background: #d9d9d9;
-}
-
-
-.product-single__quantity span.fa-plus, .cart_quantity span.fa-plus {
-  	position: relative;
-  	border: #e2e2e2 1px solid;
-	border-left: 0;
-  	right: 10px;
 }
 
 .cart__row .additional-checkout-button--paypal .xcomponent-outlet{
@@ -4596,9 +4528,8 @@ h3.guhead {
 // countDown
 
 .myCountDown {
-	text-align: center;
-  	width: 100%;
-    	font-size: 3.4em;
+  text-align: center;
+    width: 100%;
     font-weight: 600;
     margin: 0;
     font-family: "Source Sans Pro",sans-serif;
@@ -4606,7 +4537,7 @@ h3.guhead {
 }
 
 .myCountDown-wrapper {
-  	display: inline-block;
+    display: inline-block;
     text-align: center;
     width: 20%;
     margin-right: 10px;
@@ -4614,31 +4545,28 @@ h3.guhead {
     padding-top: 10px;
     font-weight: 600;
     color: #434343;
-/*     border-radius: 6px;
-    border: 1px solid #d6d6d6; */
+    border-radius: 6px;
+    border: 1px solid #d6d6d6;
 }
 
 .myCountDown-wrapper:last-of-type {
-	margin-right: 0;
+  margin-right: 0;
 }
 
 .myCountDown-num {
-  	font-size: 3.4em;
+    font-size: 60px;
     font-weight: 600;
     margin: 0;
-    font-family: "Source Sans Pro",sans-serif;
     line-height: 1;
 }
 
 .myCountDown-lbl {
-    font-size: 0.8em;
-  	font-size: 11.2px;
+    font-size: 12px;
     font-weight: 500;
     text-transform: capitalize;
-    display: inline-block;
     max-width: 100%;
     position: relative;
-  	bottom: 5px;
+    bottom: 5px;
 }
 
 // sale

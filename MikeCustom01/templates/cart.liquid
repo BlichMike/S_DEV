@@ -6,8 +6,7 @@
     - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
 
 {% endcomment %}
-  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'cart.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
-  <!--[if lte IE 9]><script src="{{ 'cart.js' | asset_url }}"></script><![endif]-->
+  {{ 'cart.js' | asset_url | script_tag }}
 
 <div class="grid">
   <div class="grid__item large--five-sixths push--large--one-twelfth">
@@ -111,10 +110,7 @@
                     
 
                     <label for="updates_{{ item.key }}" class="visually-hidden">{{ 'cart.label.quantity' | t }}</label>
-                    <span class="fa fa-minus"></span> 
-                    <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" min="0" data-id="{{ item.key }}">
-					<span class="fa fa-plus"></span> 
-                    
+                    <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" min="0" data-id="{{ item.key }}">                    
                   </div>
 
                   <div class="grid__item two-thirds text-right">
