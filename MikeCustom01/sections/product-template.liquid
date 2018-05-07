@@ -347,17 +347,38 @@
                     {% endif %}
                   </span>
                 </button>
-                
-                {% if current_variant.available %}
-         
-                <div class="counter_container no-js">
-                  <div class="text_above_timer">Sale Ends In: </div>
-                    <div id="myBar">
-                      <div id="myBarActive"></div>
-                    </div>
-                    <div id="clock" class="myCountDown"></div>
-                </div>
 
+                {% comment %} 
+                  setting different types of behaviours of the countdown
+                  0 - its off
+                  1 - it works for all products
+                  2 - it works for a specific tag specified in the schema settings
+                {% endcomment %}
+                {% if current_variant.available and section.settings.countdown_type != "0"%}
+                  {% if section.settings.countdown_type == "1" %}
+                    <div class="counter_container">
+                      <div class="text_above_timer">{{section.settings.countdown_text}}</div>
+                        <div id="myBar">
+                          <div id="myBarActive"></div>
+                        </div>
+                        <div id="clock" class="myCountDown"></div>
+                    </div>
+                    {{ 'countdown.js' | asset_url | script_tag }}
+                  {% else %}
+                    {% for tag in product.tags %}
+                      {% if section.settings.countdown_by_tag  == tag %}
+                        <div class="counter_container">
+                          <div class="text_above_timer">{{section.settings.countdown_text}}</div>
+                            <div id="myBar">
+                              <div id="myBarActive"></div>
+                            </div>
+                            <div id="clock" class="myCountDown"></div>
+                        </div>
+                        {{ 'countdown.js' | asset_url | script_tag }}
+                      {% endif %}
+                    {% endfor %}
+    
+                  {% endif %}
                 {% endif %}
                 
                 {% if section.settings.enable_payment_button %}
@@ -514,6 +535,38 @@
             "label": "Large"
           }
         ]
+      },
+      {
+        "type": "header",
+        "content": "Countdown"
+      },
+      {
+         "type": "select",
+         "id": "countdown_type",
+         "options": [
+            { "value": "0", "label": "Hide"},
+            { "value": "1", "label": "Show for all products"},
+            { "value": "2", "label": "Show for specific tag"}
+         ],
+         "label": "Countdown Type",
+         "info": "Choose the behaviour of countdown you want!",
+         "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "countdown_text",
+        "label": "Countdown Text",
+        "info": "The text that will be above the timer",
+        "default": "Hurry before you miss it! Sale ends in:",
+        "placeholder": "Enter text that will go above timer"
+      },
+      {
+        "type": "text",
+        "id": "countdown_by_tag",
+        "label": "Countdown By Tag",
+        "info": "The tag you will use on products you want to show the counter on",
+        "default": "Sale",
+        "placeholder": "Enter tag for products countdown"
       }
     ]
   }

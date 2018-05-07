@@ -1,0 +1,48 @@
+$(document).ready(function(){
+   //progress bar
+    function move() {
+        var elem = document.getElementById("myBar"); 
+        var width = 1;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } else {
+                width++; 
+                elem.style.width = width + '%'; 
+            }
+        }
+    }
+    
+    // counter
+    
+      function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+    
+      var date = new Date(), nextDate = new Date(), future = new Date(),
+          progressBar = $('#myBarActive');
+      nextDate.setHours(date.getHours() + getRandomArbitrary(2 , 9));
+      future.setDate(date.getDate() + 2)
+    
+       $('#clock').countdown(nextDate).on('update.countdown', function(event) {
+        
+         var format = '%H:%M:%S';
+         $(this).html(event.strftime(format));
+
+           $(this).html(event.strftime(''
+           + '<div class="myCountDown-wrapper">'                
+              + '<div class="myCountDown-num">%H</div> <div class="myCountDown-lbl">hr</div> '
+      + '</div> '
+
+           + '<div class="myCountDown-wrapper">'              
+              + '<div class="myCountDown-num">%M</div> <div class="myCountDown-lbl">min</div> '
+      + '</div> '
+      + '<div class="myCountDown-wrapper">'            
+              + '<div class="myCountDown-num">%S</div> <div class="myCountDown-lbl">sec</div>'
+      + '</div> '));
+
+         progressBar.css('width', 
+           ((event.offset.totalSeconds / ((future.getTime() - date.getTime())/1000))) * 100 + '%');
+       });
+});
